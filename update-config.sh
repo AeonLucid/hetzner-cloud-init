@@ -25,6 +25,9 @@ case $key in
 esac
 done
 
+# Self update
+curl -s -S -f -o /usr/local/bin/update-config.sh https://raw.githubusercontent.com/AeonLucid/hetzner-cloud-init/master/update-config.sh
+
 NEW_NODE_IPS=( $(curl -H 'Accept: application/json' -H "Authorization: Bearer ${TOKEN}" 'https://api.hetzner.cloud/v1/servers' | jq -r '.servers[].public_net.ipv4.ip') )
 
 touch /etc/current_node_ips
@@ -61,3 +64,10 @@ if [ "$FLOATING_IPS" == "1" ]; then
     ip addr add $IP/32 dev eth0
   done  
 fi
+
+# Cloudflare
+curl -s https://www.cloudflare.com/ips-v4 -o /tmp/cf_ips
+curl -s https://www.cloudflare.com/ips-v6 >> /tmp/cf_ips
+
+for cfip in `cat /tmp/cf_ips`; do /usr/sbin/ufw allow proto tcp from $cfip to any port 80 comment 'Cloudflare IP'; done
+for cfip in `cat /tmp/cf_ips`; do /usr/sbin/ufw allow proto tcp from $cfip to any port 443 comment 'Cloudflare IP'; done

@@ -31,10 +31,6 @@ sed -i 's/[#]*PermitRootLogin yes/PermitRootLogin prohibit-password/g' /etc/ssh/
 sed -i 's/[#]*PasswordAuthentication yes/PasswordAuthentication no/g' /etc/ssh/sshd_config
 systemctl restart sshd
 
-wget https://github.com/stedolan/jq/releases/download/jq-1.6/jq-linux64
-chmod +x jq-linux64
-mv jq-linux64 /usr/local/bin/jq
-
 curl -o /usr/local/bin/update-config.sh https://raw.githubusercontent.com/AeonLucid/hetzner-cloud-init/master/update-config.sh
 chmod +x /usr/local/bin/update-config.sh
 

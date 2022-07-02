@@ -44,7 +44,7 @@ chmod +x /usr/local/bin/update-config.sh
 
 ufw allow proto tcp from any to any port 22,80,443
 
-IFS=', ' read -r -a WHITELIST <<< "$WHITELIST_S"
+IFS=',' read -r -a WHITELIST <<< "$WHITELIST_S"
 
 for IP in "${WHITELIST[@]}"; do
   ufw allow from "$IP"

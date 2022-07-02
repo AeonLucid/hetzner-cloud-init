@@ -15,17 +15,11 @@ case $key in
     shift
     shift
   ;;
-  --floating-ips)
-    FLOATING_IPS="--floating-ips"
-    shift
-  ;;
   *)
     shift
   ;;
 esac
 done
-
-FLOATING_IPS=${FLOATING_IPS:-""}
 
 sed -i 's/[#]*PermitRootLogin yes/PermitRootLogin prohibit-password/g' /etc/ssh/sshd_config
 sed -i 's/[#]*PasswordAuthentication yes/PasswordAuthentication no/g' /etc/ssh/sshd_config
@@ -53,7 +47,7 @@ ufw -f default allow outgoing
 ufw -f enable
 
 cat <<EOF >> /etc/crontab
-*/5 * * * * root /usr/local/bin/update-config.sh --hcloud-token ${TOKEN} --whitelisted-ips ${WHITELIST_S} ${FLOATING_IPS}
+*/5 * * * * root /usr/local/bin/update-config.sh --hcloud-token ${TOKEN} --whitelisted-ips ${WHITELIST_S}
 EOF
 
-/usr/local/bin/update-config.sh --hcloud-token ${TOKEN} --whitelisted-ips ${WHITELIST_S} ${FLOATING_IPS}
+/usr/local/bin/update-config.sh --hcloud-token ${TOKEN} --whitelisted-ips ${WHITELIST_S}

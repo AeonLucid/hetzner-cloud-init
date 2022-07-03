@@ -53,4 +53,3 @@ cat <<EOF >> /etc/crontab
 EOF
 
 /usr/local/bin/update-config.sh --hcloud-token ${TOKEN} --whitelisted-ips ${WHITELIST_S}
-sudo reboot

@@ -21,6 +21,8 @@ case $key in
 esac
 done
 
+apt install -y jq
+
 sed -i 's/[#]*PermitRootLogin yes/PermitRootLogin prohibit-password/g' /etc/ssh/sshd_config
 sed -i 's/[#]*PasswordAuthentication yes/PasswordAuthentication no/g' /etc/ssh/sshd_config
 systemctl restart sshd
@@ -51,3 +53,4 @@ cat <<EOF >> /etc/crontab
 EOF
 
 /usr/local/bin/update-config.sh --hcloud-token ${TOKEN} --whitelisted-ips ${WHITELIST_S}
+reboot

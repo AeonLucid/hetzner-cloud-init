@@ -50,6 +50,8 @@ ufw -f enable
 
 systemctl disable --now systemd-resolved.service
 
+rm /etc/resolv.conf
+
 cat <<EOF >> /etc/resolv.conf
 nameserver 1.1.1.1
 nameserver 1.0.0.1

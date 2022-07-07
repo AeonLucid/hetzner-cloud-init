@@ -55,6 +55,7 @@ rm /etc/resolv.conf
 cat <<EOF >> /etc/resolv.conf
 nameserver 1.1.1.1
 nameserver 1.0.0.1
+nameserver 8.8.8.8
 EOF
 
 cat <<EOF >> /etc/crontab
